@@ -33,5 +33,4 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	compile('org.projectlombok:lombok:1.16.18')
-
-}
+	compile("org.springframework.boot:spring-boot-starter-web:1.5.9.RELEASE")}
