@@ -32,18 +32,5 @@ public class TaskController {
     @RequestMapping(method = RequestMethod.POST, value = "/createTask")
     public void createTask(TaskDto taskDto) {
     }
-    /*@RequestMapping(value = "", method = RequestMethod.GET)
-    @ResponseBody
-    public String getFallback() {
-        return "<!DOCTYPE html>\n" +
-                "<html>\n" +
-                "<body>\n" +
-                "You have found my secret Spot, take care not to disturb all the animals ;-) " +
-                "<P>" +
-                "\n" +
-                "<img src=https://www.rockhall.com/sites/default/files/styles/header_image_portrait/public/animals_001-1-2.jpg?itok=MDgDcb39>\n" +
-                "\n" +
-                "</body>\n" +
-                "</html>\n";*/
 }
 
