@@ -43,7 +43,8 @@ public class TaskController {
     }
     @RequestMapping(method = RequestMethod.GET, value = "/getTaskById", params = "id")
     public Task getTaskById(@RequestParam("id") long id){
-        return new Task(id, "The Crown", "Film_content");
+        return service.getTaskById(id);
+
     }
 }
 
