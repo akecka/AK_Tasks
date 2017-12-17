@@ -1,5 +1,6 @@
 package com.crud.tasks.controller;
 
+import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 
 import java.util.ArrayList;
@@ -39,6 +40,10 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/createTask")
     public void createTask(TaskDto taskDto) {
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/getTaskById", params = "id")
+    public Task getTaskById(@RequestParam("id") long id){
+        return new Task(id, "The Crown", "Film_content");
     }
 }
 
