@@ -1,15 +1,15 @@
 package com.crud.tasks.controller;
 
-import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.crud.tasks.mapper.TaskMapper;
 import com.crud.tasks.service.DbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/v1/task")
@@ -26,7 +26,7 @@ public class TaskController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/getTask", params = "id")
     public TaskDto getTask(@RequestParam("id") long id) {
-        return new TaskDto(id, "test title", "test_content");
+        return taskMapper.mapToTaskDto(service.getTaskById(id));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTask")
@@ -38,13 +38,10 @@ public class TaskController {
         return new TaskDto(id, "Edited Title", "Edited Content");
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/createTask")
-    public void createTask(TaskDto taskDto) {
+    @RequestMapping(method = RequestMethod.POST, value = "/createTask", consumes = APPLICATION_JSON_VALUE)
+    public void createTask(@RequestBody TaskDto taskDto) {
+        service.saveTask(taskMapper.mapToTask(taskDto));
     }
-    @RequestMapping(method = RequestMethod.GET, value = "/getTaskById", params = "id")
-    public Task getTaskById(@RequestParam("id") long id){
-        return service.getTaskById(id);
 
-    }
 }
 
