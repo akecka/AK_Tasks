@@ -24,18 +24,20 @@ public class TaskController {
         return taskMapper.mapToTaskDtoList(service.getAllTasks());
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/getTask", params = "id")
-    public TaskDto getTask(@RequestParam("id") long id) {
-        return taskMapper.mapToTaskDto(service.getTaskById(id));
+    @RequestMapping(method = RequestMethod.GET, value = "/getTask")
+    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException{
+        return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTask")
-    public void deleteTask(String taskId) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTask/{taskId}")
+    @ResponseBody
+    public void deleteTask(@PathVariable("taskId")Long taskId) {
+        service.deleteTask(taskId);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/updateTask", params = "id")
-    public TaskDto updateTask(@RequestParam("id") long id) {
-        return new TaskDto(id, "Edited Title", "Edited Content");
+    @RequestMapping(method = RequestMethod.PUT, value = "/updateTask")
+    public TaskDto updateTask(@RequestBody TaskDto taskDto) {
+        return taskMapper.mapToTaskDto(service.saveTask(taskMapper.mapToTask(taskDto)));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/createTask", consumes = APPLICATION_JSON_VALUE)
