@@ -1,5 +1,6 @@
 package com.crud.tasks.controller;
 
+import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/v1/task")
 public class TaskController {
@@ -25,14 +27,23 @@ public class TaskController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/getTask")
-    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException{
+    public TaskDto getTask(@RequestParam Long taskId) throws TaskNotFoundException {
         return taskMapper.mapToTaskDto(service.getTask(taskId).orElseThrow(TaskNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteTask/{taskId}")
     @ResponseBody
-    public void deleteTask(@PathVariable("taskId")Long taskId) {
-        service.deleteTask(taskId);
+    public boolean deleteTask(@PathVariable("taskId") Long taskId) {
+        Boolean ret = false;
+        try {
+            service.deleteTask(taskId);
+            ret = true;
+        } catch (Exception e) {
+            ret = false;
+        } finally {
+            return ret;
+        }
+
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/updateTask")
