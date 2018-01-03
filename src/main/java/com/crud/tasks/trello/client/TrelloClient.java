@@ -31,17 +31,11 @@ public class TrelloClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    public List<TrelloBoardDto> getTrelloBoards(final Optional toFilter) {
-        Optional.ofNullable(restTemplate);
-
+    public Optional <List<TrelloBoardDto>> getTrelloBoards() {
         URI url = TrelloURLBuild();
-
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
+        return Optional.ofNullable(Arrays.asList(boardsResponse));
 
-        if (toFilter.isPresent() && boardsResponse != null) {
-            return Arrays.asList(boardsResponse);
-        }
-        return new ArrayList<>();
     }
 
     private URI TrelloURLBuild() {
