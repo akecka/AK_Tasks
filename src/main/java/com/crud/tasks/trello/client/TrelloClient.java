@@ -33,22 +33,25 @@ public class TrelloClient {
     @Autowired
     private RestTemplate restTemplate;
 
-    /*public Optional <List<TrelloBoardDto>> getTrelloBoards() {
+    public List<TrelloBoardDto> getTrelloBoards() {
         URI url = TrelloURLBuild();
-        TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
-        return Optional.ofNullable(Arrays.asList(boardsResponse));
+        Optional<TrelloBoardDto[]> boardsResponse = Optional.ofNullable(restTemplate.getForObject(url, TrelloBoardDto[].class));
 
+        if (boardsResponse.isPresent()) {
+            Arrays.asList(boardsResponse);
+        }
+        return new ArrayList<>();
     }
 
     private URI TrelloURLBuild() {
         return UriComponentsBuilder.fromHttpUrl(trelloApiEndPoint + "/members/agnieszkakecka/boards")
                 .queryParam("key", trelloAppKey)
                 .queryParam("token", trelloToken)
-                .queryParam("fields", "name,id").build().encode().toUri();
-
-    }*/
-
-    public List<TrelloBoardDto> getTrelloBoards(){
+                .queryParam("fields", "name,id")
+                .queryParam("lists", "all").build().encode().toUri();
+    }
+/*
+    public List<TrelloBoardDto> getTrelloBoards() {
 
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndPoint + "/members/agnieszkakecka/boards")
                 .queryParam("key", trelloAppKey)
@@ -58,14 +61,14 @@ public class TrelloClient {
 
         TrelloBoardDto[] boardsResponse = restTemplate.getForObject(url, TrelloBoardDto[].class);
 
-        if (boardsResponse != null){
+        if (boardsResponse != null) {
             return Arrays.asList(boardsResponse);
         }
 
         return new ArrayList<>();
-    }
+    } */
 
-    public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto){
+    public CreatedTrelloCard createNewCard(TrelloCardDto trelloCardDto) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(trelloApiEndPoint + "/cards")
                 .queryParam("key", trelloAppKey)
