@@ -57,6 +57,7 @@ public class TrelloClient {
                 .queryParam("pos", trelloCardDto.getPos())
                 .queryParam("idList", trelloCardDto.getListId())
                 .queryParam("badges", "votes, attachmentsByType")
+                .queryParam("attachmentsByType", "board, card")
                 .build().encode().toUri();
 
         return url;
