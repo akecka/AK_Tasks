@@ -9,6 +9,8 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import javax.mail.internet.MimeMessage;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -25,7 +27,7 @@ public class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmail() {
         //Given
-        Mail mail = new Mail("alex.sharman@gmail.com", "Test", "Test Message", "");
+        Mail mail = new Mail("agnkecka@gmail.com", "Kodilla_test", "Test Message", "");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
@@ -37,9 +39,11 @@ public class SimpleEmailServiceTest {
         System.out.println(mail.getMailTo());
         simpleEmailService.send(mail);
 
+
         //Then
         verify(javaMailSender, times(1)).send(mailMessage);
 
     }
+
 
 }

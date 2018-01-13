@@ -24,15 +24,21 @@ public class EmailScheduler {
     private AdminConfig adminConfig;
 
     @Scheduled(fixedDelay = 1000)
-    public void sendInformationEmail(){
+    public void sendInformationEmail() {
         long size = taskRepository.count();
+        String t;
+        if (size == 1) {
+            t = "task";
+        } else {
+            t = "tasks";
+        }
         simpleEmailService.send(new Mail(
                 adminConfig.getAdminMail(),
-                SUBJECT,
-                "Currently in database you got:" + size + "tasks",
-                ""
-        ));
+                SUBJECT, "Currently you have: "
+                + size + " " + t + " in your database."
+                , ""));
 
+        System.out.println("TEST: schedule without working email ...");
     }
 
 }
