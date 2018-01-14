@@ -23,8 +23,15 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
+        simpleEmailService.send(new Mail(
+                adminConfig.getAdminMail(),
+                SUBJECT, createBody()
+                , ""));
+    }
+
+    public String createBody() {
         long size = taskRepository.count();
         String t;
         if (size == 1) {
@@ -32,13 +39,8 @@ public class EmailScheduler {
         } else {
             t = "tasks";
         }
-        simpleEmailService.send(new Mail(
-                adminConfig.getAdminMail(),
-                SUBJECT, "Currently you have: "
-                + size + " " + t + " in your database."
-                , ""));
+        return "Currently you have: " + size + " " + t + " in your database.";
 
-        System.out.println("TEST: schedule without working email ...");
     }
 
 }
