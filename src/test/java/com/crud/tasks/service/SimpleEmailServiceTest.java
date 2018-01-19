@@ -6,11 +6,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-
-import javax.mail.internet.MimeMessage;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,7 +26,7 @@ public class SimpleEmailServiceTest {
     public void shouldSendEmail() {
 
         //Given
-        Mail mail = new Mail("agnkecka@gmail.com", "Kodilla_test", "Test Message", "aa@gmail.com");
+        Mail mail = new Mail("***@gmail.com", "Kodilla_test", "Test Message", "aa@gmail.com");
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(mail.getMailTo());
