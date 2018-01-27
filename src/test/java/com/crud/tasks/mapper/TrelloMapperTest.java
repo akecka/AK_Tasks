@@ -1,12 +1,14 @@
 package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+
 
 public class TrelloMapperTest {
 
@@ -22,10 +24,18 @@ public class TrelloMapperTest {
         trelloBoardDtos.add(boardDto1);
         trelloBoardDtos.add(boardDto2);
         trelloBoardDtos.add(boardDto3);
+        List<TrelloBoard> expectedTrelloBoards = new ArrayList<>();
+        TrelloBoard board1 = new TrelloBoard("22234", "Deployment", new ArrayList<>());
+        TrelloBoard board2 = new TrelloBoard("52341", "HTML", new ArrayList<>());
+        TrelloBoard board3 = new TrelloBoard("65784", "Create domain objects", new ArrayList<>());
+        expectedTrelloBoards.add(board1);
+        expectedTrelloBoards.add(board2);
+        expectedTrelloBoards.add(board3);
         //When
         List<TrelloBoard> resultList = trelloMapper.mapToBoards(trelloBoardDtos);
         //Then
-        assertEquals(trelloBoardDtos.size(), resultList.size());
+        assertEquals(expectedTrelloBoards, resultList);
+
     }
 
     @Test
@@ -38,24 +48,36 @@ public class TrelloMapperTest {
         trelloBoard.add(board1);
         trelloBoard.add(board2);
         trelloBoard.add(board3);
+        List<TrelloBoardDto> expectedBoards = new ArrayList<>();
+        TrelloBoardDto boardDto1 = new TrelloBoardDto("33445", "Rest Api 3", new ArrayList<>());
+        TrelloBoardDto boardDto2 = new TrelloBoardDto("65412", "Rest Api 2", new ArrayList<>());
+        TrelloBoardDto boardDto3 = new TrelloBoardDto("35412", "Create architecture api", new ArrayList<>());
+        expectedBoards.add(boardDto1);
+        expectedBoards.add(boardDto2);
+        expectedBoards.add(boardDto3);
         //When
-        List<TrelloBoardDto> theTrelloBoard = trelloMapper.mapToBoardsDto(trelloBoard);
+        List<TrelloBoardDto> resultTrelloBoard = trelloMapper.mapToBoardsDto(trelloBoard);
         //Then
-        assertEquals(trelloBoard.size(), theTrelloBoard.size());
+        assertEquals(expectedBoards, resultTrelloBoard);
     }
 
     @Test
     public void mapToList() {
         //Given
         List<TrelloListDto> trelloListsDto = new ArrayList<>();
-        TrelloListDto trelloList1 = new TrelloListDto("22334", "Design patterns", true);
-        TrelloListDto trelloList2 = new TrelloListDto("55443", "Create application controller", true);
-        trelloListsDto.add(trelloList1);
-        trelloListsDto.add(trelloList2);
+        TrelloListDto trelloListDto1 = new TrelloListDto("22334", "Design patterns", true);
+        TrelloListDto trelloListDto2 = new TrelloListDto("55443", "Create application controller", true);
+        trelloListsDto.add(trelloListDto1);
+        trelloListsDto.add(trelloListDto2);
+        List<TrelloList> expectedList = new ArrayList<>();
+        TrelloList trelloList1 = new TrelloList("22334", "Design patterns", true);
+        TrelloList trelloList2 = new TrelloList("55443", "Create application controller", true);
+        expectedList.add(trelloList1);
+        expectedList.add(trelloList2);
         //When
         List<TrelloList> resultTrelloList = trelloMapper.mapToList(trelloListsDto);
         //Then
-        assertEquals(trelloListsDto.size(), resultTrelloList.size());
+        assertEquals(expectedList, resultTrelloList);
 
     }
 
@@ -67,10 +89,15 @@ public class TrelloMapperTest {
         TrelloList trelloList2 = new TrelloList("22333", "Things which I've done", false);
         trelloLists.add(trelloList1);
         trelloLists.add(trelloList2);
+        List<TrelloListDto> expectedTrelloLists = new ArrayList<>();
+        TrelloListDto trelloListDto1 = new TrelloListDto("33333", "Things I am working on", false);
+        TrelloListDto trelloListDto2 = new TrelloListDto("22333", "Things which I've done", false);
+        expectedTrelloLists.add(trelloListDto1);
+        expectedTrelloLists.add(trelloListDto2);
         //When
         List<TrelloListDto> resTrelloLists = trelloMapper.mapToListDto(trelloLists);
         //Then
-        assertEquals(trelloLists.size(), resTrelloLists.size());
+        assertEquals(expectedTrelloLists, resTrelloLists);
 
     }
 
