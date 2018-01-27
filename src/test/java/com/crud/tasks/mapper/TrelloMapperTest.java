@@ -3,7 +3,6 @@ package com.crud.tasks.mapper;
 import com.crud.tasks.domain.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
@@ -14,8 +13,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloMapperTest {
 
-    @InjectMocks
-    private TrelloMapper trelloMapper;
+    TrelloMapper trelloMapper = new TrelloMapper();
 
     @Test
     public void mapToBoards() {
@@ -48,14 +46,14 @@ public class TrelloMapperTest {
     @Test
     public void mapToList() {
         //Given
-        List<TrelloListDto> trelloList = new ArrayList<>();
-        trelloList.add(new TrelloListDto("22334", "Design patterns", true));
-        trelloList.add(new TrelloListDto("55443", "Create application controller", true));
+        List<TrelloListDto> trelloLists = new ArrayList<>();
+        trelloLists.add(new TrelloListDto("22334", "Design patterns", true));
+        trelloLists.add(new TrelloListDto("55443", "Create application controller", true));
         //When
-        List<TrelloList> theTrelloList = new ArrayList<>();
-        theTrelloList.addAll(trelloMapper.mapToList(trelloList));
+        List<TrelloList> theTrelloList = trelloMapper.mapToList(trelloLists);
         //Then
-        assertEquals(2, theTrelloList.size());
+        assertEquals(trelloLists.get(0).getId(), theTrelloList.get(0).getId());
+        assertEquals(trelloLists.get(1).getId(), theTrelloList.get(1).getId());
     }
 
     @Test
@@ -65,10 +63,10 @@ public class TrelloMapperTest {
         trelloLists.add(new TrelloList("33333", "Things I am working on", false));
         trelloLists.add(new TrelloList("22333", "Things which I've done", false));
         //When
-        List<TrelloListDto> theTrelloLists = new ArrayList<>();
-        theTrelloLists.addAll(trelloMapper.mapToListDto(trelloLists));
+        List<TrelloListDto> theTrelloLists = trelloMapper.mapToListDto(trelloLists);
         //Then
-        assertEquals(2, theTrelloLists.size());
+        assertEquals(theTrelloLists.get(0).getName(), theTrelloLists.get(0).getName());
+        assertEquals(theTrelloLists.get(1).getName(), theTrelloLists.get(1).getName());
     }
 
     @Test
