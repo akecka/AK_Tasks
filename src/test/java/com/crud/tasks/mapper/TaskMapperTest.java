@@ -12,11 +12,9 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TaskMapperTest {
 
-    @InjectMocks
-    TaskMapper taskMapper;
+    TaskMapper taskMapper = new TaskMapper();
 
     @Test
     public void mapToTask() {

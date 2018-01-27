@@ -2,15 +2,12 @@ package com.crud.tasks.mapper;
 
 import com.crud.tasks.domain.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TrelloMapperTest {
 
     TrelloMapper trelloMapper = new TrelloMapper();
@@ -18,55 +15,63 @@ public class TrelloMapperTest {
     @Test
     public void mapToBoards() {
         //Given
-        List<TrelloBoardDto> trelloBoard = new ArrayList<>();
-        trelloBoard.add(new TrelloBoardDto("22234", "Deployment", new ArrayList<>()));
-        trelloBoard.add(new TrelloBoardDto("52341", "HTML", new ArrayList<>()));
-        trelloBoard.add(new TrelloBoardDto("65784", "Create domain objects", new ArrayList<>()));
+        List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
+        TrelloBoardDto boardDto1 = new TrelloBoardDto("22234", "Deployment", new ArrayList<>());
+        TrelloBoardDto boardDto2 = new TrelloBoardDto("52341", "HTML", new ArrayList<>());
+        TrelloBoardDto boardDto3 = new TrelloBoardDto("65784", "Create domain objects", new ArrayList<>());
+        trelloBoardDtos.add(boardDto1);
+        trelloBoardDtos.add(boardDto2);
+        trelloBoardDtos.add(boardDto3);
         //When
-        List<TrelloBoard> theTrelloBoard = new ArrayList<>();
-        theTrelloBoard.addAll(trelloMapper.mapToBoards(trelloBoard));
+        List<TrelloBoard> resultList = trelloMapper.mapToBoards(trelloBoardDtos);
         //Then
-        assertEquals(3, theTrelloBoard.size());
+        assertEquals(trelloBoardDtos.size(), resultList.size());
     }
 
     @Test
     public void mapToBoardsDto() {
         //Given
         List<TrelloBoard> trelloBoard = new ArrayList<>();
-        trelloBoard.add(new TrelloBoard("33445", "Rest Api 3", new ArrayList<>()));
-        trelloBoard.add(new TrelloBoard("65412", "Rest Api 2", new ArrayList<>()));
-        trelloBoard.add(new TrelloBoard("35412", "Create architecture api", new ArrayList<>()));
+        TrelloBoard board1 = new TrelloBoard("33445", "Rest Api 3", new ArrayList<>());
+        TrelloBoard board2 = new TrelloBoard("65412", "Rest Api 2", new ArrayList<>());
+        TrelloBoard board3 = new TrelloBoard("35412", "Create architecture api", new ArrayList<>());
+        trelloBoard.add(board1);
+        trelloBoard.add(board2);
+        trelloBoard.add(board3);
         //When
-        List<TrelloBoardDto> theTrelloBoard = new ArrayList<>();
-        theTrelloBoard.addAll(trelloMapper.mapToBoardsDto(trelloBoard));
+        List<TrelloBoardDto> theTrelloBoard = trelloMapper.mapToBoardsDto(trelloBoard);
         //Then
-        assertEquals(3, theTrelloBoard.size());
+        assertEquals(trelloBoard.size(), theTrelloBoard.size());
     }
 
     @Test
     public void mapToList() {
         //Given
-        List<TrelloListDto> trelloLists = new ArrayList<>();
-        trelloLists.add(new TrelloListDto("22334", "Design patterns", true));
-        trelloLists.add(new TrelloListDto("55443", "Create application controller", true));
+        List<TrelloListDto> trelloListsDto = new ArrayList<>();
+        TrelloListDto trelloList1 = new TrelloListDto("22334", "Design patterns", true);
+        TrelloListDto trelloList2 = new TrelloListDto("55443", "Create application controller", true);
+        trelloListsDto.add(trelloList1);
+        trelloListsDto.add(trelloList2);
         //When
-        List<TrelloList> theTrelloList = trelloMapper.mapToList(trelloLists);
+        List<TrelloList> resultTrelloList = trelloMapper.mapToList(trelloListsDto);
         //Then
-        assertEquals(trelloLists.get(0).getId(), theTrelloList.get(0).getId());
-        assertEquals(trelloLists.get(1).getId(), theTrelloList.get(1).getId());
+        assertEquals(trelloListsDto.size(), resultTrelloList.size());
+
     }
 
     @Test
     public void mapToListDto() {
         //Given
         List<TrelloList> trelloLists = new ArrayList<>();
-        trelloLists.add(new TrelloList("33333", "Things I am working on", false));
-        trelloLists.add(new TrelloList("22333", "Things which I've done", false));
+        TrelloList trelloList1 = new TrelloList("33333", "Things I am working on", false);
+        TrelloList trelloList2 = new TrelloList("22333", "Things which I've done", false);
+        trelloLists.add(trelloList1);
+        trelloLists.add(trelloList2);
         //When
-        List<TrelloListDto> theTrelloLists = trelloMapper.mapToListDto(trelloLists);
+        List<TrelloListDto> resTrelloLists = trelloMapper.mapToListDto(trelloLists);
         //Then
-        assertEquals(theTrelloLists.get(0).getName(), theTrelloLists.get(0).getName());
-        assertEquals(theTrelloLists.get(1).getName(), theTrelloLists.get(1).getName());
+        assertEquals(trelloLists.size(), resTrelloLists.size());
+
     }
 
     @Test
