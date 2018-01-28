@@ -40,13 +40,15 @@ public class TaskMapperTest {
     public void mapToTaskDtoList() {
         //Given
         List<Task> taskList = new ArrayList<>();
-        taskList.add(new Task(new Long(3), "Rest Api", "Api"));
+        Task task1 = new Task(new Long(3), "Rest Api", "Api");
+        taskList.add(task1);
+        List<TaskDto> expectedList = new ArrayList<>();
+        TaskDto taskDto1 = new TaskDto(new Long(3), "Rest Api", "Api");
+        expectedList.add(taskDto1);
         //When
-        List<TaskDto> theTaskList = new ArrayList<>();
-        theTaskList.addAll(taskMapper.mapToTaskDtoList(taskList));
+        List<TaskDto> resultTaskList = taskMapper.mapToTaskDtoList(taskList);
         //Then
-        assertEquals(1, theTaskList.size());
+        assertEquals(expectedList, resultTaskList);
     }
-
 
 }
