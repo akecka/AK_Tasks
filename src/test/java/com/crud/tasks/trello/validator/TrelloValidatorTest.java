@@ -13,7 +13,7 @@ public class TrelloValidatorTest {
     TrelloValidator trelloValidator = new TrelloValidator();
 
     @Test
-    public void validateCard(){
+    public void validateCard() {
         //Given
         TrelloCard trelloCard = new TrelloCard("work", "work to do", "23", "21");
         //When
@@ -24,10 +24,10 @@ public class TrelloValidatorTest {
     }
 
     @Test
-    public void validateBoard(){
+    public void validateBoard() {
         //given
         List<TrelloBoard> trelloBoards = new ArrayList<>();
-        TrelloBoard trelloBoard = new TrelloBoard("1", "blabla", new ArrayList<>());
+        TrelloBoard trelloBoard = new TrelloBoard("1", "Hibernate", new ArrayList<>());
         //when
         trelloBoards.add(trelloBoard);
         //then

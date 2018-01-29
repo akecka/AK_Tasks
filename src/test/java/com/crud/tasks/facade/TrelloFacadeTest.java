@@ -1,9 +1,6 @@
 package com.crud.tasks.facade;
 
-import com.crud.tasks.domain.TrelloBoard;
-import com.crud.tasks.domain.TrelloBoardDto;
-import com.crud.tasks.domain.TrelloList;
-import com.crud.tasks.domain.TrelloListDto;
+import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.facade.TrelloFacade;
@@ -104,5 +101,16 @@ public class TrelloFacadeTest {
             });
         });
 
+    }
+
+    @Test
+    public void createCard() {
+        //Given
+        TrelloCardDto trelloCardDto = new TrelloCardDto("Heroku", "Platform for developers", "23", "254");
+        when(trelloFacade.createCard(trelloCardDto)).thenReturn(new CreatedTrelloCardDto("34", "Heroku", "com"));
+        //When
+        CreatedTrelloCardDto trelloCard1 = trelloFacade.createCard(trelloCardDto);
+        //Then
+        assertEquals(trelloCardDto.getName(), trelloCard1.getName());
     }
 }

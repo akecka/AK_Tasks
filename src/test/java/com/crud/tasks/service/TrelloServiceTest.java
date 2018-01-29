@@ -1,16 +1,21 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.config.AdminConfig;
 import com.crud.tasks.domain.CreatedTrelloCardDto;
 import com.crud.tasks.domain.TrelloBoardDto;
 import com.crud.tasks.domain.TrelloCardDto;
+import com.crud.tasks.trello.client.TrelloClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TrelloServiceTest {
@@ -18,12 +23,21 @@ public class TrelloServiceTest {
     @InjectMocks
     TrelloService trelloService;
 
+    @Mock
+    private AdminConfig adminConfig;
+
+    @Mock
+    private TrelloClient trelloClient;
+
+    @Mock
+    private SimpleEmailService emailService;
+
 
     @Test
     public void createTrelloCard() {
         //Given
         TrelloCardDto trelloCardDto = new TrelloCardDto("PostMan", "Toolchain", "23", "234");
-        trelloService.createTrelloCard(trelloCardDto);
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(new CreatedTrelloCardDto("22", "PostMan", "www"));
         //When
         CreatedTrelloCardDto trelloCard1 = trelloService.createTrelloCard(trelloCardDto);
         //Then
@@ -33,8 +47,10 @@ public class TrelloServiceTest {
     @Test
     public void fetchTrelloBoards() {
         //Given
-        TrelloCardDto trelloCardDto = new TrelloCardDto("blaa", "blaaaa", "1", "1");
-        trelloService.createTrelloCard(trelloCardDto);
+        TrelloBoardDto trelloBoardDto = new TrelloBoardDto("1", "PostMan", new ArrayList<>());
+        List<TrelloBoardDto> trelloDtoList = new ArrayList<>();
+        trelloDtoList.add(trelloBoardDto);
+        when(trelloService.fetchTrelloBoards()).thenReturn(trelloDtoList);
         //When
         List<TrelloBoardDto> resultBoardList = trelloService.fetchTrelloBoards();
         //Then
