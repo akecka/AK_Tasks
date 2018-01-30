@@ -26,12 +26,12 @@ public class DbServiceTest {
 
 
     @Test
-    public void getAllTasks() {
+    public void shouldGetAllTasks() {
         //Given
         Task task = new Task(new Long(1), "Test Driven Development", "TDD");
         List<Task> taskList = new ArrayList<>();
         taskList.add(task);
-        when(dbService.getAllTasks()).thenReturn(taskList);
+        when(repository.findAll()).thenReturn(taskList);
         //When
         List<Task> allTasks = dbService.getAllTasks();
         //Then
@@ -39,32 +39,39 @@ public class DbServiceTest {
     }
 
     @Test
-    public void getTaskById() {
+    public void shouldGetTaskById() {
         //Given
         Task expectedTask = new Task(new Long(1), "Mockito", "Mock");
-        Mockito.when(Optional.ofNullable(dbService.getTaskById(new Long(1)))).thenReturn(Optional.ofNullable(expectedTask));
+        Mockito.when(repository.findById(new Long(1))).thenReturn(Optional.of(expectedTask));
         //When
         Task resTask = dbService.getTaskById(expectedTask.getId());
         //Then
         assertEquals(expectedTask, resTask);
+
     }
 
     @Test
-    public void saveTask() {
+    public void shouldSaveTask() {
         //Given
         Task expTask = new Task(new Long(22), "Spring Boot", "Boot");
-        when(dbService.saveTask(expTask)).thenReturn(expTask);
+        List<Task> taskList = new ArrayList<>();
+        taskList.add(expTask);
+        when(repository.save(expTask)).thenReturn(expTask);
+        when(repository.findAll()).thenReturn(taskList);
         //When
         Task finishTask = dbService.saveTask(expTask);
+        List<Task> allTasks = dbService.getAllTasks();
         //Then
         assertEquals(expTask, finishTask);
+
+        assertEquals(taskList.size(), allTasks.size());
     }
 
     @Test
-    public void getTask() {
+    public void shouldGetTask() {
         //Given
         Task expTask = new Task(new Long(22), "Rest Api", "Api");
-        when(dbService.getTask(expTask.getId())).thenReturn(Optional.ofNullable(expTask));
+        when(repository.findById(expTask.getId())).thenReturn(Optional.ofNullable(expTask));
         //When
         Optional<Task> endTask = dbService.getTask(expTask.getId());
         //Then
@@ -73,13 +80,12 @@ public class DbServiceTest {
     }
 
     @Test
-    public void deleteTask() {
-        //given
+    public void shouldDeleteTask() {
+        //Given
         Task expTask = new Task(new Long(22), "Rest Api", "Api");
-        dbService.deleteTask(expTask.getId());
-        //when
-
-        //then
+        repository.deleteById(expTask.getId());
+        //When
+        //Then
         verify(repository, times(1)).deleteById(expTask.getId());
     }
 }

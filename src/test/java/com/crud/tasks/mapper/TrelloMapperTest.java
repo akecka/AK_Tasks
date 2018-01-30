@@ -15,7 +15,7 @@ public class TrelloMapperTest {
     TrelloMapper trelloMapper = new TrelloMapper();
 
     @Test
-    public void mapToBoards() {
+    public void shouldMapToBoards() {
         //Given
         List<TrelloBoardDto> trelloBoardDtos = new ArrayList<>();
         TrelloBoardDto boardDto1 = new TrelloBoardDto("22234", "Deployment", new ArrayList<>());
@@ -39,7 +39,7 @@ public class TrelloMapperTest {
     }
 
     @Test
-    public void mapToBoardsDto() {
+    public void shouldMapToBoardsDto() {
         //Given
         List<TrelloBoard> trelloBoard = new ArrayList<>();
         TrelloBoard board1 = new TrelloBoard("33445", "Rest Api 3", new ArrayList<>());
@@ -62,7 +62,7 @@ public class TrelloMapperTest {
     }
 
     @Test
-    public void mapToList() {
+    public void shouldMapToList() {
         //Given
         List<TrelloListDto> trelloListsDto = new ArrayList<>();
         TrelloListDto trelloListDto1 = new TrelloListDto("22334", "Design patterns", true);
@@ -82,7 +82,7 @@ public class TrelloMapperTest {
     }
 
     @Test
-    public void mapToListDto() {
+    public void shouldMapToListDto() {
         //Given
         List<TrelloList> trelloLists = new ArrayList<>();
         TrelloList trelloList1 = new TrelloList("33333", "Things I am working on", false);
@@ -102,7 +102,7 @@ public class TrelloMapperTest {
     }
 
     @Test
-    public void mapToCardDto() {
+    public void shouldMapToCardDto() {
         //Given
         TrelloCard trelloCard1 = new TrelloCard("Array List", "Useful mechanism", "222", "23");
         //When
@@ -116,7 +116,7 @@ public class TrelloMapperTest {
     }
 
     @Test
-    public void mapToCard() {
+    public void shouldMapToCard() {
         //Given
         TrelloCardDto trelloCardDto1 = new TrelloCardDto("Mockito", "Useful mechanism", "334", "55");
         //When

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class BadgesTest {
 
     @Test
-    public void BadgesTest(){
+    public void testBadges(){
         //Given
         Trello trello = new Trello(1, 1);
         Badges badges = new Badges(2, new AttachmentsByType(trello));

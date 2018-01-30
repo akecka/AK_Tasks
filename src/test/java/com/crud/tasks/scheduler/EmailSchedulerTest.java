@@ -28,7 +28,7 @@ public class EmailSchedulerTest {
     private AdminConfig adminConfig;
 
     @Test
-    public void sendInformationEmail(){
+    public void shouldSendInformationEmail() {
         //Given
         Mail mail = new Mail("", "", "", "");
         simpleEmailService.send(mail);
@@ -36,12 +36,6 @@ public class EmailSchedulerTest {
         emailScheduler.sendInformationEmail();
         //Then
         verify(simpleEmailService, times(1)).send(mail);
-
-    }
-
-    @Test
-    public void createBody(){
-        System.out.println(emailScheduler.createBody());
 
     }
 

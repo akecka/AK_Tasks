@@ -104,10 +104,14 @@ public class TrelloFacadeTest {
     }
 
     @Test
-    public void createCard() {
+    public void shouldCreateCard() {
         //Given
         TrelloCardDto trelloCardDto = new TrelloCardDto("Heroku", "Platform for developers", "23", "254");
-        when(trelloFacade.createCard(trelloCardDto)).thenReturn(new CreatedTrelloCardDto("34", "Heroku", "com"));
+        CreatedTrelloCardDto createdTrelloCardDto = new CreatedTrelloCardDto("22", "Heroku", "www");
+        TrelloCard card = new TrelloCard("Heroku", "Platform for developers","23","254");
+        when(trelloService.createTrelloCard(trelloCardDto)).thenReturn(createdTrelloCardDto);
+        when(trelloMapper.mapToCard(trelloCardDto)).thenReturn(card);
+        when(trelloMapper.mapToCardDto(card)).thenReturn(trelloCardDto);
         //When
         CreatedTrelloCardDto trelloCard1 = trelloFacade.createCard(trelloCardDto);
         //Then
