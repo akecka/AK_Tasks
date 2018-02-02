@@ -12,6 +12,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EmailSchedulerTest {
@@ -30,11 +31,16 @@ public class EmailSchedulerTest {
     @Test
     public void shouldSendInformationEmail() {
         //Given
-        Mail mail = new Mail("", "", "", "");
+        when(adminConfig.getAdminMail()).thenReturn("borskagn@gmail.com");
+        when(taskRepository.count()).thenReturn(45L);
+        String body = emailScheduler.createBody();
+        Mail mail = new Mail("borsukagn@gmail.com", "admin", body, "");
         simpleEmailService.send(mail);
         //When
         emailScheduler.sendInformationEmail();
         //Then
+        System.out.println(mail.getMailTo());
+        System.out.println(mail.getMessage());
         verify(simpleEmailService, times(1)).send(mail);
 
     }
