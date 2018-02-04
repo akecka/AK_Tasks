@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -34,14 +35,36 @@ public class EmailSchedulerTest {
         when(adminConfig.getAdminMail()).thenReturn("borskagn@gmail.com");
         when(taskRepository.count()).thenReturn(45L);
         String body = emailScheduler.createBody();
-        Mail mail = new Mail("borsukagn@gmail.com", "admin", body, "");
-        simpleEmailService.send(mail);
+        Mail mail = new Mail("borsukagn@gmail.com", "Tasks: Once a day email", body, "");
         //When
         emailScheduler.sendInformationEmail();
         //Then
         System.out.println(mail.getMailTo());
         System.out.println(mail.getMessage());
         verify(simpleEmailService, times(1)).send(mail);
+    }
+
+    @Test
+    public void shouldReturnTask(){
+        //Given
+        when(taskRepository.count()).thenReturn(1L);
+        String body = emailScheduler.createBody();
+        //When
+        String t = " task ";
+        //Then
+        assertEquals(true, body.contains(t));
+
+    }
+
+    @Test
+    public void shouldReturnTasks() {
+        //Given
+        when(taskRepository.count()).thenReturn(45L);
+        String body = emailScheduler.createBody();
+        //When
+        String t = " tasks ";
+        //Then
+        assertEquals(true, body.contains(t));
 
     }
 
