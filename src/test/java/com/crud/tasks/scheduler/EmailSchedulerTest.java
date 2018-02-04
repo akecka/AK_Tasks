@@ -32,7 +32,7 @@ public class EmailSchedulerTest {
     @Test
     public void shouldSendInformationEmail() {
         //Given
-        when(adminConfig.getAdminMail()).thenReturn("borskagn@gmail.com");
+        when(adminConfig.getAdminMail()).thenReturn("borsukagn@gmail.com");
         when(taskRepository.count()).thenReturn(45L);
         String body = emailScheduler.createBody();
         Mail mail = new Mail("borsukagn@gmail.com", "Tasks: Once a day email", body, "");
