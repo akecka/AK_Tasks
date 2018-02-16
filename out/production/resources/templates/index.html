@@ -13,17 +13,20 @@
     <br>
 
    <!--/*@thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-    <span th:text="${two} * ${two}"></span>
+    <!--/*@thymesVar id="four" type="com.crud.tasks.controller.StaticWebPageController"*/-->
+    <span th:text="${two} +  ' * ' + ${two} + ' = ' + ${four}"></span>
 
     <br>
 
     <!--/*@thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
     <!--/*@thymesVar id="six" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-    <span th:text="${two} * ${two} + {two} = {six}"></span>
+    <span th:text="${two}  +  ' * ' + ${two} +  ' + ' + ${two} + ' = ' + ${six}"></span>
+
+    <br>
 
     <!--/*@thymesVar id="two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
     <!--/*@thymesVar id="-two" type="com.crud.tasks.controller.StaticWebPageController"*/-->
-    <span th:text="${two} - ${two} * {two} = {-two}"></span>
+    <span th:text="${two} + ' - ' + ${two} + ' * ' + ${two} + ' = ' + ${-two}"></span>
 
 </body>
 </html>
