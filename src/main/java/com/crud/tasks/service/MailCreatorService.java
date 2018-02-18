@@ -21,13 +21,15 @@ public class MailCreatorService {
 
     public String buildTrelloCardEmail(String message) {
         Context context = new Context();
+        context.setVariable("trello_card", "Creation of Trello Card");
         context.setVariable("message", message);
         context.setVariable("tasks_url", "https://akecka.github.io/");
         context.setVariable("button", "Visit website");
         context.setVariable("admin_name", adminConfig.getAdminName());
-        return templateEngine.process("src/main/resources/templates.mail/created-trello-card-mail.html", context);
-        //templates.mail/created-trello-card-mail.html
-        //C:\Users\Borsuk\Downloads\tasks\tasks\src\main\resources\templates.mail\created-trello-card-mail.html
+        context.setVariable("name", "Alexander");
+        context.setVariable("admin_mail", adminConfig.getAdminMail());
+        return templateEngine.process("mail/created-trello-card-mail", context);
+
     }
 }
 
