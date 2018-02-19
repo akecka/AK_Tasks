@@ -27,15 +27,11 @@ public class EmailScheduler {
     @Autowired
     private MailCreatorService mailCreatorService;
 
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(cron = "0 0 10 * * *")
     public void sendInformationEmail() {
-//        simpleEmailService.send(new Mail(
-//                adminConfig.getAdminMail(),
-//                SUBJECT, createBody()
-//                , ""));
-        simpleEmailService.send(
-                new Mail(adminConfig.getAdminMail(),
-                        SUBJECT, mailCreatorService.buildScheduledEmail(createBody()), ""), "schedule");
+        simpleEmailService.send(new Mail(
+                adminConfig.getAdminMail(),
+                SUBJECT, createBody(), ""), "schedule");
 
     }
 
