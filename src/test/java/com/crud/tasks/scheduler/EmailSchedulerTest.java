@@ -41,7 +41,7 @@ public class EmailSchedulerTest {
         //Then
         System.out.println(mail.getMailTo());
         System.out.println(mail.getMessage());
-        verify(simpleEmailService, times(1)).send(mail);
+        verify(simpleEmailService, times(1)).send(mail, "schedule");
     }
 
     @Test
