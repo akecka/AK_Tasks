@@ -7,6 +7,7 @@ import com.crud.tasks.service.TrelloService;
 import com.crud.tasks.trello.facade.TrelloFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -19,12 +20,12 @@ public class TrelloController {
     private TrelloFacade trellofacade;
 
     @RequestMapping(method = RequestMethod.GET, value = "/boards")
-    public List<TrelloBoardDto> getTrelloBoards(){
+    public List<TrelloBoardDto> getTrelloBoards() {
         return trellofacade.fetchTrelloBoards();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/cards")
-    public CreatedTrelloCardDto createTrelloCard(@RequestBody TrelloCardDto trelloCardDto){
+    public CreatedTrelloCardDto createTrelloCard(@RequestBody TrelloCardDto trelloCardDto) {
         return trellofacade.createCard(trelloCardDto);
     }
 }
